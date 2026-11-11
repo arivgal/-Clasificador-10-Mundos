@@ -1,16 +1,16 @@
 <!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>El Reto de los 10 Mundos · Clasificador lector</title>
 <style>
 :root{color-scheme:light;--navy:#101d42;--muted:#465575;--blue:#224ba5;--bg:#edf2fc;--border:#cdd8ed}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--navy);font:16px/1.5 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:0 22px 56px}.hero{background:#07183f;color:white}.hero div{max-width:1000px;margin:auto}.hero img{width:100%;display:block}.intro{padding:19px 0 4px}.eyebrow{letter-spacing:.11em;font-weight:850;font-size:.76rem;color:var(--blue);text-transform:uppercase}h1,h2,h3,p{margin:0}h1{font-size:clamp(1.55rem,4vw,2.35rem);line-height:1.15;margin:4px 0 10px}h2{font-size:1.3rem;margin-bottom:4px}p,small{color:var(--muted)}section{background:#fff;border:1px solid var(--border);border-radius:19px;margin:17px 0;padding:22px;box-shadow:0 4px 18px #152d6210}.step{display:inline-grid;place-items:center;background:var(--navy);color:white;border-radius:50%;width:29px;height:29px;font-size:16px;margin-right:8px;vertical-align:2px}.tools{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:12px}button,select,input,textarea{font:inherit}button{cursor:pointer;border:1px solid #b8c8e5;border-radius:10px;background:#eff4ff;color:#163c8b;padding:8px 13px;font-weight:700}button:hover:not(:disabled){filter:brightness(.94)}button.primary{background:#234ba3;border-color:#234ba3;color:white}button:disabled{cursor:default;opacity:.5}button.danger{color:#a02939;background:#fff4f5;border-color:#f3c2ca}button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #0078b0;outline-offset:2px}textarea,input[type=text],select{border:1px solid #abbcdb;border-radius:9px;padding:8px;background:white;color:var(--navy);min-width:0}textarea{width:100%;min-height:113px;display:block;margin-top:12px;resize:vertical}label{font-weight:700}.hint{font-size:.9rem;margin-top:7px}#message{min-height:1.6em;margin-top:9px;color:#153f85;font-weight:650}#message.error{color:#9a233b}.stats{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.stat{background:#edf3ff;border-radius:30px;padding:3px 9px;color:#244477;font-size:.83rem}.rows{display:grid;gap:6px;margin-top:10px}.row{display:grid;grid-template-columns:minmax(160px,1fr) minmax(170px,.6fr) auto auto;gap:8px;align-items:center;border:1px solid #d9e3f4;border-radius:10px;padding:8px}.row.pending{border-color:#e3bd6d;background:#fffaf0}.row label{white-space:nowrap;font-size:.9rem;display:flex;align-items:center;gap:5px}.row input[type=checkbox]{width:17px;height:17px;accent-color:#244ba3}.row .tag{grid-column:1/-1;font-size:.77rem;color:#5d6380}.row button{padding:5px 9px}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.controls input{flex:1}.poster{margin:15px auto 0;max-width:830px;border-radius:12px;overflow:hidden;background:#06102d}.poster canvas{display:block;width:100%;height:auto}.empty{padding:13px;background:#f2f6ff;border-radius:10px;margin-top:10px}summary{cursor:pointer;color:var(--blue);font-weight:700}details{margin-top:12px}details p{margin-top:6px}.status{font-weight:700;margin-top:10px}.badge{background:#dff4e5;color:#14512b;border-radius:30px;padding:4px 12px;font-size:.9rem;display:inline-block;margin-top:8px}[hidden]{display:none!important}@media(max-width:635px){main{padding:0 12px 35px}section{padding:15px}.row{grid-template-columns:1fr auto auto}.row input[type=text]{grid-column:1/-1;width:100%}.row .tag{grid-column:1/-1}.row select{width:100%}.row label{font-size:.79rem}.tools button{font-size:.91rem}}
-.course{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px;padding:12px 15px;border:1px solid var(--border);border-radius:12px;background:#fff}.course select{font-weight:700}.course small{flex:1;min-width:190px}</style>
+.course{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px;padding:12px 15px;border:1px solid var(--border);border-radius:12px;background:#fff}.course select{font-weight:700}.course small{flex:1;min-width:190px}.book-lookup{grid-column:1/-1;margin:0}.book-lookup summary{font-size:.88rem}.lookup-content{background:#f2f6ff;border-radius:9px;padding:11px;display:grid;gap:8px}.lookup-content label{display:grid;gap:4px}.lookup-content p{font-size:.88rem;white-space:pre-line;overflow-wrap:anywhere}.lookup-results{display:grid;gap:6px}.lookup-results button{text-align:left;overflow-wrap:anywhere}.lookup-content button{justify-self:start}.lookup-pick{display:flex;flex-wrap:wrap;align-items:center;gap:7px}.lookup-content textarea{margin:5px 0}.lookup-content a{color:#163c8b}</style>
 <header class="hero"><div><img id="hero" alt="El Reto de los 10 Mundos · 5.º de Primaria · Biblioteca de aula"></div></header>
 <main>
 <div class="intro"><span class="eyebrow">Biblioteca de aula · Herramienta docente</span><h1>Clasificador de los 10 mundos</h1><p>Pasa de una lista de libros a un cartel listo para compartir. Tú decides la clasificación final.</p><div class="course"><label for="course">Curso</label><select id="course"><option value="5">5.º de Primaria</option><option value="6">6.º de Primaria</option></select><small>Cada curso tiene su propia lista de libros.</small></div></div>
-<section aria-labelledby="s1"><h2 id="s1"><span class="step">1</span> Añade los libros</h2><p>Pega o escribe un título por línea. Puedes añadir una pista con <strong>|</strong>, por ejemplo: <em>El club de las nubes | cómic de aventuras</em>.</p>
+<section aria-labelledby="s1"><h2 id="s1"><span class="step">1</span> Añade los libros</h2><p>Pega un título por línea. Después de añadirlos, puedes pulsar «Buscar y clasificar listado». Puedes añadir una pista con <strong>|</strong>, por ejemplo: <em>El club de las nubes | cómic de aventuras</em>.</p>
 <label for="titles" class="hint">Listado de títulos</label><textarea id="titles" placeholder="El principito&#10;Las brujas de Brooklyn&#10;Un título nuevo | novela de misterio"></textarea>
 <div class="tools"><button id="add" class="primary">Añadir y sugerir mundos</button><button id="sample">Añadir catálogo de ejemplo (43)</button></div>
-<p id="message" role="status" aria-live="polite"></p></section>
+<div class="tools"><button id="batch" disabled>Buscar y clasificar listado</button><button id="stopbatch" hidden>Detener búsqueda</button></div><p id="batchstatus" class="hint" role="status"></p><p id="message" role="status" aria-live="polite"></p></section>
 <section aria-labelledby="s2"><h2 id="s2"><span class="step">2</span> Revisa y valida</h2><p>Elige un mundo principal para cada título. Marca <strong>Espejo</strong> si también es una recomendación: aparecerá en los dos mundos.</p>
-<details><summary>Cómo se sugieren los mundos</summary><p>Se usa el catálogo de ejemplo y se buscan pistas en el título o la descripción. Los libros que no se pueden identificar quedan pendientes. Para Mundo Coloso, comprueba la extensión de tu ejemplar; para Planeta Proyector, comprueba si tiene adaptación.</p></details>
+<details><summary>Cómo se sugieren los mundos</summary><p>Se usa el catálogo de ejemplo y se buscan pistas en el título. Para un libro nuevo, abre «Buscar sinopsis o temas» y consulta su ficha o pega una sinopsis. Los libros que no se pueden identificar quedan pendientes. Para Mundo Coloso, comprueba la extensión de tu ejemplar; para Planeta Proyector, comprueba si tiene adaptación.</p></details>
 <div id="stats" class="stats"></div>
 <div class="controls" id="filterbar" hidden><input type="text" id="search" placeholder="Buscar título…" aria-label="Buscar título"><select id="filter" aria-label="Filtrar catálogo"><option value="">Todos los libros</option><option value="pending">Sin mundo principal</option><option value="mirror">En Mundo Espejo</option></select></div>
 <div class="rows" id="rows"></div><p id="empty" class="empty">Todavía no hay libros. Añade tu lista o prueba con el catálogo de ejemplo.</p>
@@ -60,13 +60,198 @@ function save(){try{localStorage.setItem(courseKey(),JSON.stringify({books}));}c
 function status(){const n=books.filter(b=>!ids.has(b.world)||!b.title.trim()).length,m=books.filter(b=>b.mirror).length;
  $('stats').replaceChildren(...[books.length+' '+(books.length===1?'libro':'libros'),n+' sin revisar',m+' en Espejo'].map(t=>el('span',t,'stat')));
  $('empty').hidden=!!books.length;$('filterbar').hidden=!books.length;$('validate').disabled=!books.length;$('clear').disabled=!books.length;
- $('generate').disabled=approved!==rev;$('download').disabled=painted!==rev;
+ $('generate').disabled=approved!==rev;$('download').disabled=painted!==rev;batchUI();
 }
 function changed(){rev++;approved=-1;painted=-1;gen++;save();$('reviewstatus').textContent='';$('poster').hidden=true;$('posterstatus').textContent='Disponible después de validar la clasificación.';status();}
 function el(t,txt,cls){const e=document.createElement(t);if(txt!==undefined)e.textContent=txt;if(cls)e.className=cls;return e;}
 function msg(t,error=false){$('message').textContent=t;$('message').className=error?'error':'';}
 function option(value,title){const o=el('option',title);o.value=value;return o;}
 for(const w of primary)$('filter').append(option(w.id,w.id+' · '+w.name));
+const catalogBase='https://openlibrary.org';
+const requestCache=new Map();
+let lastCatalogRequest=0,catalogQueue=Promise.resolve();
+function catalogJSON(url){
+ if(requestCache.has(url))return requestCache.get(url);
+ const task=catalogQueue.then(async()=>{
+  const delay=Math.max(0,1100-(Date.now()-lastCatalogRequest));
+  if(delay)await new Promise(resolve=>setTimeout(resolve,delay));
+  lastCatalogRequest=Date.now();
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),10000);
+  try{
+   const response=await fetch(url,{signal:controller.signal,credentials:'omit',referrerPolicy:'no-referrer'});
+   if(!response.ok)throw Error('Respuesta del catálogo: '+response.status);
+   return await response.json();
+  }finally{clearTimeout(timer);}
+ });
+ catalogQueue=task.catch(()=>{});
+ requestCache.set(url,task);
+ task.catch(()=>requestCache.delete(url));
+ return task;
+}
+const clues=[
+ [2,'cómic, manga o novela gráfica',/\b(comic|comics|manga|graphic novels?|novela grafica|vinetas)\b/],
+ [6,'una adaptación cinematográfica o televisiva',/\b(adaptacion cinematografica|film adaptation|motion picture adaptation|adapted (?:into|for) (?:a )?(?:film|movie|television)|llevad[oa] al cine|basad[oa] en la pelicula)\b/],
+ [1,'misterio, detectives o investigación',/\b(misteri\w*|mystery|mysteries|detectiv\w*|sleuth\w*|whodunit|enigma|investigacion policial|crime fiction)\b/],
+ [7,'un clásico o cuento popular',/\b(cuentos? clasicos?|clasico literario|traditional tales|folk ?tales|fabulas?|fables|literary classics|cuentos? populares?)\b/],
+ [4,'ciencia, divulgación, historia o biografía',/\b(non ?fiction|no ficcion|divulgacion|popular science|biograf\w*|biograph\w*|natural history|historia natural|ciencia para ninos|science for children)\b/],
+ [8,'emociones, convivencia o crecimiento personal',/\b(acoso escolar|bullying|emociones|emotions|empatia|empathy|self esteem|autoestima|convivencia|grief|duelo|sentimientos|feelings)\b/],
+ [5,'humor o deporte',/\b(humor\w*|humour\w*|comedia|comedy|funny stories|sports|deportes?|futbol|football|soccer|baloncesto)\b/],
+ [3,'fantasía, magia o ciencia ficción',/\b(fantas\w*|magia|magic\w*|hechizo\w*|witches|wizards|brujas?|dragones?|dragons?|ciencia ficcion|science fiction|mundos paralelos|viajes? en el tiempo|time travel)\b/],
+ [10,'lectura extensa',/\b(lectura extensa|novela extensa|mundo coloso)\b/]
+];
+function fromMetadata(subjects,description){
+ const hits=[];
+ for(const [id,why,re] of clues){
+  const bySubject=subjects.some(s=>re.test(norm(s)));
+  const bySummary=re.test(norm(description));
+  if(bySubject||bySummary)hits.push({id,why,score:(bySubject?3:0)+(bySummary?1:0)});
+ }
+ hits.sort((a,b)=>b.score-a.score);
+ return hits;
+}
+const workKey=s=>{const m=String(s).match(/^(?:\/works\/)?(OL\d+W)$/);return m?'/works/'+m[1]:'';};
+function cleanSubjects(x){return Array.isArray(x)?x.filter(v=>typeof v==='string').slice(0,40):[];}
+function synopsisText(x){const v=typeof x==='string'?x:x?.value;return typeof v==='string'?v.trim().slice(0,4200):'';}
+const bookPanels=new WeakMap();
+function rankWorlds(b,hits){
+ const counts=new Map(primary.map(w=>[w.id,0]));
+ for(const book of books)if(book!==b&&counts.has(book.world))counts.set(book.world,counts.get(book.world)+1);
+ return [...hits].sort((a,z)=>counts.get(a.id)-counts.get(z.id)||a.id-z.id);
+}
+function attachCatalog(row,b,select,tag){
+ const prior=bookPanels.get(b);
+ if(prior){prior.row=row;prior.select=select;prior.tag=tag;row.append(prior.pane);return;}
+ const entry={row,select,tag};bookPanels.set(b,entry);
+ const pane=el('details',undefined,'book-lookup');
+ pane.append(el('summary','Buscar sinopsis o temas'));
+ const content=el('div',undefined,'lookup-content'), label=el('label','Título o ISBN'), query=el('input');query.type='text';query.maxLength=240;query.value=b.title;
+ query.setAttribute('aria-label','Título o ISBN para buscar '+b.title);
+ label.append(query);const search=el('button','Buscar en Open Library');
+ const statusLine=el('p');statusLine.setAttribute('role','status');
+ const result=el('div',undefined,'lookup-results'), choice=el('div',undefined,'lookup-results');
+ const manual=el('details');manual.append(el('summary','Pegar una sinopsis'));
+ const pasted=el('textarea');pasted.maxLength=4200;pasted.placeholder='Pega la sinopsis de la contraportada o de la editorial';pasted.setAttribute('aria-label','Sinopsis para '+b.title);
+ const useText=el('button','Sugerir con esta sinopsis'), manualOut=el('div',undefined,'lookup-results');manual.append(pasted,useText,manualOut);
+ let counter=0;
+ function assign(hit,source){
+  if(!books.includes(b))return false;
+  const w=primary.find(p=>p.id===hit.id);
+  b.world=hit.id;b.source=source;entry.select.value=String(hit.id);entry.tag.textContent=source;
+  entry.row.classList.toggle('pending',!b.title.trim());changed();
+  statusLine.textContent='Mundo asignado: '+w.name+'.';return true;
+ }
+ function showSuggestions(container,subjects,description,source,auto=null){
+  const hits=rankWorlds(b,fromMetadata(subjects,description));
+  const applied=hits.length>0&&auto?.canAssign()&&assign(hits[0],'Asignación automática · '+source);
+  if(applied){
+   const w=primary.find(p=>p.id===hits[0].id);
+   container.append(el('p','Asignado a '+w.name+(hits.length>1?' por número de libros y orden de mundos.':'.')));
+  }
+  if(!hits.length){container.append(el('p','No hay pistas suficientes para proponer un mundo. Puedes elegirlo en el desplegable del libro.'));return 'review';}
+  const line=el('p',hits.length>1?'Posibles mundos según la ficha:':'Mundo sugerido:');container.append(line);
+  for(const hit of hits.slice(0,3)){
+   const w=primary.find(p=>p.id===hit.id), wrap=el('div',undefined,'lookup-pick');
+   const why=el('span',w.name+' · '+hit.why);
+   const apply=el('button','Asignar a '+w.name);
+   apply.onclick=()=>{if(assign(hit,source))apply.textContent='Asignado a '+w.name;};
+   wrap.append(why,apply);container.append(wrap);
+  }
+  return applied?'assigned':'review';
+ }
+ useText.onclick=()=>{manualOut.replaceChildren();const value=pasted.value.trim();if(!value){manualOut.append(el('p','Pega una sinopsis para empezar.'));return;}showSuggestions(manualOut,[],value,'Sinopsis aportada');};
+ async function findBook(auto=null){
+  if(search.disabled)return 'review';
+  if(auto)query.value=b.title;
+  const value=query.value.trim(),token=++counter;
+  if(!value){statusLine.textContent='Escribe un título o ISBN.';return;}
+  search.disabled=true;statusLine.textContent='Buscando fichas…';result.replaceChildren();choice.replaceChildren();
+  const rawISBN=value.replace(/[\s-]/g,'');
+  const params=new URLSearchParams({lang:'es',limit:'6',fields:'key,title,author_name,first_publish_year,subject'});
+  if(/^(?:\d{9}[\dXx]|\d{13})$/.test(rawISBN))params.set('q','isbn:'+rawISBN);else params.set('title',value);
+  const visit=el('a','Buscar en la web de Open Library');visit.href=catalogBase+'/search?'+new URLSearchParams({q:value});visit.target='_blank';visit.rel='noopener noreferrer';
+  try{
+   const data=await catalogJSON(catalogBase+'/search.json?'+params);
+   if(token!==counter)return;
+   const found=(Array.isArray(data?.docs)?data.docs:[]).filter(item=>item&&workKey(item.key)&&typeof item.title==='string');
+   if(!found.length){statusLine.textContent='No se encontró una ficha. Prueba con otro título, el ISBN o pega una sinopsis.';result.append(visit);return 'review';}
+   statusLine.textContent='Elige la ficha que coincide con tu libro.';
+   const exact=found.filter(h=>norm(h.title)===norm(b.title));
+   let exactDetails;
+   for(const hit of found){
+    const key=workKey(hit.key), authors=Array.isArray(hit.author_name)?hit.author_name.join(', '):'', caption=[hit.title,authors,hit.first_publish_year].filter(Boolean).join(' · ');
+    const pick=el('button',caption);result.append(pick);
+    const details=async(active=null)=>{
+     const selected=++counter;
+     choice.replaceChildren(el('p','Consultando la ficha elegida…'));
+     let data={};
+     try{data=await catalogJSON(catalogBase+key+'.json');}catch{}
+     if(selected!==counter)return;
+     const desc=synopsisText(data?.description), subjects=[...new Set([...cleanSubjects(hit.subject),...cleanSubjects(data?.subjects)])];
+     const link=el('a','Ver ficha en Open Library');link.href=catalogBase+key;link.target='_blank';link.rel='noopener noreferrer';
+     choice.replaceChildren(el('p',caption),link);
+     if(desc){const d=el('details');d.append(el('summary','Leer sinopsis'),el('p',desc));choice.append(d);}
+     else choice.append(el('p',subjects.length?'No hay sinopsis accesible. La sugerencia usa los temas de la ficha.':'No hay sinopsis ni temas accesibles. Puedes pegar la sinopsis.'));
+     if(subjects.length)choice.append(el('small','Temas: '+subjects.slice(0,8).join(', ')));
+     return showSuggestions(choice,subjects,desc,'Ficha de Open Library',active);
+    };
+    pick.onclick=()=>details(auto);
+    if(exact.length===1&&hit===exact[0])exactDetails=details;
+   }
+   if(auto?.canAssign()&&exactDetails)return await exactDetails(auto);
+   return 'review';
+  }catch{if(token===counter){statusLine.textContent='El catálogo no responde. Puedes abrir la búsqueda en otra pestaña o pegar una sinopsis.';result.append(visit);}return 'error';}
+  finally{search.disabled=false;}
+ }
+ search.onclick=()=>findBook();
+ entry.pane=pane;entry.run=()=>findBook({canAssign:entry.canAssign});
+ content.append(label,search,statusLine,result,choice,manual);pane.append(content);row.append(pane);
+}
+
+const recentLists=new Map(),batchDone=new WeakSet();
+let batchRun=null;
+function targets(){
+ const candidates=recentLists.get(course)??books;
+ return candidates.filter(b=>books.includes(b)&&b.title.trim()&&!batchDone.has(b)&&
+  (b.source==='Sin sugerencia'||b.source==='Sugerencia por palabras clave'||(!b.world&&b.source!=='Asignación manual')));
+}
+function batchUI(){
+ $('batch').disabled=!!batchRun||!targets().length;
+ $('stopbatch').hidden=!batchRun;
+}
+$('stopbatch').onclick=()=>{if(batchRun){batchRun.stopped=true;$('batchstatus').textContent='Deteniendo la búsqueda…';}};
+$('batch').onclick=async()=>{
+ if(batchRun)return;
+ const list=targets().slice(0,20);
+ if(!list.length)return;
+ const job={course,stopped:false};batchRun=job;
+ $('filter').value='';$('search').value='';render();batchUI();
+ let assigned=0,review=0,errors=0,done=0;
+ try{
+  for(const b of list){
+   if(job.stopped||course!==job.course)break;
+   if(!books.includes(b)||!targets().includes(b))continue;
+   const title=b.title,world=b.world,source=b.source, panel=bookPanels.get(b);
+   if(!panel)continue;
+   $('batchstatus').textContent='Consultando '+(done+1)+' de '+list.length+': '+title;
+   panel.pane.open=true;
+   panel.canAssign=()=>!job.stopped&&course===job.course&&books.includes(b)&&b.title===title&&b.world===world&&b.source===source;
+   const outcome=await panel.run();
+   if(job.stopped||course!==job.course)break;
+   done++;
+   if(outcome==='error'){errors++;if(errors>=2)break;}
+   else {errors=0;batchDone.add(b);if(outcome==='assigned')assigned++;else review++;}
+  }
+ }finally{
+  if(batchRun===job)batchRun=null;
+  batchUI();
+  if(course===job.course){
+   const more=targets().length;
+   $('batchstatus').textContent=assigned+' asignados · '+review+' para revisar'+(errors?' · El catálogo no respondió a alguna búsqueda.':'')+(more?' · '+more+' por consultar.':'')+(job.stopped?' · Búsqueda detenida.':'');
+  }
+ }
+};
+
 function render(){
  const filter=$('filter').value,q=norm($('search').value),frag=document.createDocumentFragment();
  books.forEach((b,i)=>{
@@ -82,17 +267,18 @@ function render(){
   check.onchange=()=>{b.mirror=check.checked;changed();};const label=el('label');label.append(check,' Espejo');
   const del=el('button','Quitar');del.setAttribute('aria-label','Quitar '+b.title);del.onclick=()=>{books.splice(i,1);changed();render();};
   const tag=el('small',b.source||'Asignación manual','tag');
-  row.append(name,sel,label,del,tag);frag.append(row);
+  row.append(name,sel,label,del,tag);attachCatalog(row,b,sel,tag);frag.append(row);
  });
  if(!frag.childNodes.length&&books.length)frag.append(el('p','No hay libros con este filtro.','empty'));
  $('rows').replaceChildren(frag);status();
 }
-function addAll(list){const have=new Set(books.map(b=>norm(b.title)));let newCount=0,dup=0;
- for(const b of list){const k=norm(b.title);if(!k)continue;if(have.has(k)){dup++;continue;}books.push(b);have.add(k);newCount++;}
+function addAll(list){const have=new Set(books.map(b=>norm(b.title)));let newCount=0,dup=0;const added=[];
+ for(const b of list){const k=norm(b.title);if(!k)continue;if(have.has(k)){dup++;continue;}books.push(b);added.push(b);have.add(k);newCount++;}
  if(newCount){$('filter').value='';$('search').value='';changed();render();}
  msg(newCount+' '+(newCount===1?'libro añadido':'libros añadidos')+(dup?' · '+dup+' '+(dup===1?'duplicado omitido':'duplicados omitidos'):'')+'.');
+ return added;
 }
-$('add').onclick=()=>{const list=$('titles').value.split(/\r?\n/).map(l=>l.replace(/^\s*(?:[-*•]\s*|\d+[.)]\s+)/,'').trim()).filter(Boolean).map(l=>{const [title,...hint]=l.split('|');return{title:title.trim(),...suggest(title.trim(),hint.join(' '))};}).filter(b=>norm(b.title));if(!list.length){msg('Escribe al menos un título para empezar.',true);return;}addAll(list);$('titles').value='';};
+$('add').onclick=()=>{const list=$('titles').value.split(/\r?\n/).map(l=>l.replace(/^\s*(?:[-*•]\s*|\d+[.)]\s+)/,'').trim()).filter(Boolean).map(l=>{const [title,...hint]=l.split('|');return{title:title.trim(),...suggest(title.trim(),hint.join(' '))};}).filter(b=>norm(b.title));if(!list.length){msg('Escribe al menos un título para empezar.',true);return;}const added=addAll(list);if(added.length)recentLists.set(course,added);batchUI();$('titles').value='';};
 $('sample').onclick=()=>addAll(currentDemo().map(b=>({...b,source:'Catálogo de referencia'})));
 $('clear').onclick=()=>{if(confirm('¿Vaciar todos los libros del catálogo?')){books.length=0;changed();render();}};
 $('filter').onchange=render;$('search').oninput=render;
@@ -110,7 +296,8 @@ $('course').onchange=()=>{
  const next=Number($('course').value);
  if(next===course||![5,6].includes(next))return;
  drafts.set(course,$('titles').value);
- course=next;loadBooks();
+ if(batchRun)batchRun.stopped=true;
+ course=next;loadBooks();$('batchstatus').textContent='';
  try{localStorage.setItem(key+'-curso',String(course));}catch{}
  $('titles').value=drafts.get(course)||'';
  $('filter').value='';$('search').value='';msg('');
