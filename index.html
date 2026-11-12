@@ -21,7 +21,7 @@
  body,main{background:#fff!important;margin:0!important;padding:0!important;max-width:none!important}
  body>:not(main),main>:not(#s3):not(section:has(#poster)),section:has(#poster)>:not(#poster){display:none!important}
  section:has(#poster),#poster{margin:0!important;padding:0!important;border:0!important;border-radius:0!important;max-width:none!important;box-shadow:none!important;outline:0!important;overflow:visible!important}
- #poster canvas{width:210mm;height:296.9mm;object-fit:contain}
+ #poster canvas{position:fixed;inset:0;width:100%;height:100%;object-fit:contain}
 }
 </style>
 <header class="hero"><div class="cover"><img id="hero" alt="El Reto de los 10 Mundos: dos astronautas leen entre planetas y cohetes"><span class="cover-group" id="covergroup"></span></div></header>
@@ -41,8 +41,8 @@
 <div class="tools"><button id="validate" class="primary" disabled>Validar clasificación</button><button id="clear" class="danger" disabled>Vaciar catálogo</button></div>
 <p id="reviewstatus" class="status" role="status" aria-live="polite"></p>
 </section>
-<section aria-labelledby="s3"><h2 id="s3"><span class="step">3</span> Genera la infografía</h2><p>El cartel mantiene la cabecera espacial, los diez planetas ilustrados y los rangos del reto. Se ajusta a una hoja A4 vertical y deja 1 cm de margen blanco en cada lado.</p>
-<div class="tools"><button class="primary" id="generate" disabled>Generar infografía</button><button id="download" disabled>Descargar PNG A4</button><button id="downloadpdf" disabled>Descargar PDF A4</button><button id="printposter" disabled>Imprimir A4</button></div>
+<section aria-labelledby="s3"><h2 id="s3"><span class="step">3</span> Genera la infografía</h2><p>El cartel mantiene la cabecera espacial, los diez planetas ilustrados y los rangos del reto. Se ajusta a una hoja A4 vertical y deja 4 mm de margen blanco en cada lado. Para imprimir, descarga y abre el PDF.</p>
+<div class="tools"><button class="primary" id="generate" disabled>Generar infografía</button><button class="primary" id="downloadpdf" disabled>Descargar PDF A4 para imprimir</button><button id="download" disabled>Descargar PNG A4</button></div>
 <p id="posterstatus" class="hint" role="status">Disponible después de validar la clasificación.</p>
 <div id="poster" class="poster" hidden><canvas id="canvas" role="img" aria-label="Infografía de los diez mundos con los títulos del catálogo validado"></canvas></div>
 </section>
@@ -94,7 +94,7 @@ function save(){try{localStorage.setItem(courseKey(),JSON.stringify({books}));}c
 function status(){const n=books.filter(b=>!ids.has(b.world)||!b.title.trim()).length,m=books.filter(b=>b.mirror).length;
  $('stats').replaceChildren(...[books.length+' '+(books.length===1?'libro':'libros'),n+' sin revisar',m+' en Espejo'].map(t=>el('span',t,'stat')));
  $('empty').hidden=!!books.length;$('filterbar').hidden=!books.length;$('validate').disabled=!books.length;$('clear').disabled=!books.length;
- $('generate').disabled=approved!==rev;$('download').disabled=painted!==rev;$('printposter').disabled=painted!==rev;$('downloadpdf').disabled=painted!==rev;batchUI();updateWorldTiles();
+ $('generate').disabled=approved!==rev;$('download').disabled=painted!==rev;$('downloadpdf').disabled=painted!==rev;batchUI();updateWorldTiles();
 }
 function changed(){rev++;approved=-1;painted=-1;gen++;save();$('reviewstatus').textContent='';$('poster').hidden=true;$('posterstatus').textContent='Disponible después de validar la clasificación.';status();}
 function el(t,txt,cls){const e=document.createElement(t);if(txt!==undefined)e.textContent=txt;if(cls)e.className=cls;return e;}
@@ -476,7 +476,7 @@ function draw(art){
   if(cur){out.push(cur);cur='';}
   let chunk='';for(const ch of w){if(chunk&&g.measureText(chunk+ch).width>width){out.push(chunk);chunk='';}chunk+=ch;}cur=chunk;
  }if(cur)out.push(cur);return out;}
- const H=2770*200/190, footerH=226, avail=H-start-gap*5-footerH;
+ const H=2000*289/202, footerH=226, avail=H-start-gap*5-footerH;
  let size=34, leading, lists, rowH, used;
  do{
   g.font=font(size);leading=Math.ceil(size*1.22);
@@ -491,8 +491,8 @@ function draw(art){
  rowH=rowH.map((h,i)=>h+Math.floor(extra*(i+1)/5)-Math.floor(extra*i/5));
  c.width=2480;c.height=3508;
  g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);
- g.save();g.translate(c.width*10/210,c.height*10/297);
- g.scale(c.width*190/(210*W),c.height*277/(297*H));
+ g.save();g.translate(c.width*4/210,c.height*4/297);
+ g.scale(c.width*202/(210*W),c.height*289/(297*H));
  g.beginPath();g.rect(0,0,W,H);g.clip();
  const grad=g.createLinearGradient(0,0,W,H);grad.addColorStop(0,'#060d29');grad.addColorStop(.5,'#09204b');grad.addColorStop(1,'#0b1236');g.fillStyle=grad;g.fillRect(0,0,W,H);
  let seed=329;function rnd(){seed=(Math.imul(1664525,seed)+1013904223)>>>0;return seed/4294967296;}
@@ -519,7 +519,7 @@ function draw(art){
  }
  g.drawImage(foot,0,y,W,footerH);g.restore();
 }
-$('generate').onclick=async()=>{if(approved!==rev)return;const current=rev,token=++gen;$('posterstatus').textContent='Preparando la infografía…';try{const art=await loadArt();if(current!==rev||token!==gen)return;draw(art);painted=rev;$('poster').hidden=false;$('posterstatus').textContent='Infografía A4 lista para descargar o imprimir.';status();}catch(e){if(current===rev)$('posterstatus').textContent=e.message||'No se pudo generar la infografía.';}};
+$('generate').onclick=async()=>{if(approved!==rev)return;const current=rev,token=++gen;$('posterstatus').textContent='Preparando la infografía…';try{const art=await loadArt();if(current!==rev||token!==gen)return;draw(art);painted=rev;$('poster').hidden=false;$('posterstatus').textContent='Infografía lista. Descarga el PDF para imprimirla en una sola hoja.';status();}catch(e){if(current===rev)$('posterstatus').textContent=e.message||'No se pudo generar la infografía.';}};
 function posterPdf(jpeg,width,height){
  const pt=mm=>(mm*72/25.4).toFixed(6),w=pt(210),h=pt(297);
  const enc=new TextEncoder(),parts=[],offsets=[0];let length=0;
@@ -553,7 +553,6 @@ $('downloadpdf').onclick=()=>{
   }catch{if(current===rev)$('posterstatus').textContent='No se pudo preparar el PDF.';}
  },'image/jpeg',0.98);
 };
-$('printposter').onclick=()=>{if(painted===rev)window.print();};
 async function pngAt300dpi(blob){
  const bytes=new Uint8Array(await blob.arrayBuffer()),v=new DataView(bytes.buffer);
  const chunk=new Uint8Array(21),d=new DataView(chunk.buffer);
@@ -569,6 +568,6 @@ async function pngAt300dpi(blob){
  }
  return new Blob(parts,{type:'image/png'});
 }
-$('download').onclick=()=>{if(painted!==rev)return;const current=rev;$('canvas').toBlob(async blob=>{if(current!==rev)return;if(!blob){$('posterstatus').textContent='No se pudo descargar la imagen.';return;}let png;try{png=await pngAt300dpi(blob);}catch{if(current===rev)$('posterstatus').textContent='No se pudo preparar el PNG. Puedes imprimir desde el botón Imprimir A4.';return;}if(current!==rev)return;const url=URL.createObjectURL(png),a=el('a');a.href=url;a.download='Reto_de_los_10_Mundos_'+(course===5?'5B':course===6?'6C':course)+'_Primaria_A4.png';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);},'image/png');};
+$('download').onclick=()=>{if(painted!==rev)return;const current=rev;$('canvas').toBlob(async blob=>{if(current!==rev)return;if(!blob){$('posterstatus').textContent='No se pudo descargar la imagen.';return;}let png;try{png=await pngAt300dpi(blob);}catch{if(current===rev)$('posterstatus').textContent='No se pudo preparar el PNG. Puedes descargar el PDF A4 para imprimir.';return;}if(current!==rev)return;const url=URL.createObjectURL(png),a=el('a');a.href=url;a.download='Reto_de_los_10_Mundos_'+(course===5?'5B':course===6?'6C':course)+'_Primaria_A4.png';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);},'image/png');};
 render();
 </script></html>
