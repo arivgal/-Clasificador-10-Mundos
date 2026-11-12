@@ -15,11 +15,12 @@
 .reader-footer .astronaut-left{background-position:left bottom}
 .reader-footer .astronaut-right{background-position:right bottom}
 @media(max-width:620px){.reader-footer{grid-template-columns:repeat(2,minmax(0,1fr));justify-items:center;padding:10px;gap:8px}.reader-footer .astronaut{width:min(100%,125px)}.reader-footer #rankfooter{grid-row:2;grid-column:1/-1}}
+.poster:has(canvas){background:#fff;border:0;outline:0;box-shadow:none;border-radius:0}
 @page{size:A4 portrait;margin:0}
 @media print{
  body,main{background:#fff!important;margin:0!important;padding:0!important;max-width:none!important}
  body>:not(main),main>:not(#s3):not(section:has(#poster)),section:has(#poster)>:not(#poster){display:none!important}
- section:has(#poster),#poster{margin:0!important;padding:0!important;border:0!important;border-radius:0!important;max-width:none!important;box-shadow:none!important;overflow:visible!important}
+ section:has(#poster),#poster{margin:0!important;padding:0!important;border:0!important;border-radius:0!important;max-width:none!important;box-shadow:none!important;outline:0!important;overflow:visible!important}
  #poster canvas{width:210mm;height:296.9mm;object-fit:contain}
 }
 </style>
@@ -40,8 +41,8 @@
 <div class="tools"><button id="validate" class="primary" disabled>Validar clasificación</button><button id="clear" class="danger" disabled>Vaciar catálogo</button></div>
 <p id="reviewstatus" class="status" role="status" aria-live="polite"></p>
 </section>
-<section aria-labelledby="s3"><h2 id="s3"><span class="step">3</span> Genera la infografía</h2><p>El cartel mantiene la cabecera espacial, los diez planetas ilustrados y los rangos del reto. Se ajusta a una hoja A4 vertical y deja 5 mm de margen blanco en cada lado.</p>
-<div class="tools"><button class="primary" id="generate" disabled>Generar infografía</button><button id="download" disabled>Descargar PNG A4</button><button id="printposter" disabled>Imprimir A4</button></div>
+<section aria-labelledby="s3"><h2 id="s3"><span class="step">3</span> Genera la infografía</h2><p>El cartel mantiene la cabecera espacial, los diez planetas ilustrados y los rangos del reto. Se ajusta a una hoja A4 vertical y deja 1 cm de margen blanco en cada lado.</p>
+<div class="tools"><button class="primary" id="generate" disabled>Generar infografía</button><button id="download" disabled>Descargar PNG A4</button><button id="downloadpdf" disabled>Descargar PDF A4</button><button id="printposter" disabled>Imprimir A4</button></div>
 <p id="posterstatus" class="hint" role="status">Disponible después de validar la clasificación.</p>
 <div id="poster" class="poster" hidden><canvas id="canvas" role="img" aria-label="Infografía de los diez mundos con los títulos del catálogo validado"></canvas></div>
 </section>
@@ -93,7 +94,7 @@ function save(){try{localStorage.setItem(courseKey(),JSON.stringify({books}));}c
 function status(){const n=books.filter(b=>!ids.has(b.world)||!b.title.trim()).length,m=books.filter(b=>b.mirror).length;
  $('stats').replaceChildren(...[books.length+' '+(books.length===1?'libro':'libros'),n+' sin revisar',m+' en Espejo'].map(t=>el('span',t,'stat')));
  $('empty').hidden=!!books.length;$('filterbar').hidden=!books.length;$('validate').disabled=!books.length;$('clear').disabled=!books.length;
- $('generate').disabled=approved!==rev;$('download').disabled=painted!==rev;$('printposter').disabled=painted!==rev;batchUI();updateWorldTiles();
+ $('generate').disabled=approved!==rev;$('download').disabled=painted!==rev;$('printposter').disabled=painted!==rev;$('downloadpdf').disabled=painted!==rev;batchUI();updateWorldTiles();
 }
 function changed(){rev++;approved=-1;painted=-1;gen++;save();$('reviewstatus').textContent='';$('poster').hidden=true;$('posterstatus').textContent='Disponible después de validar la clasificación.';status();}
 function el(t,txt,cls){const e=document.createElement(t);if(txt!==undefined)e.textContent=txt;if(cls)e.className=cls;return e;}
@@ -468,14 +469,14 @@ function loadArt(){const src=headerSource();if(!artCache.has(src))artCache.set(s
 function draw(art){
  const [head,foot,...icons]=art,c=$('canvas'),g=c.getContext('2d');
  const group=worlds.map(w=>books.filter(b=>w.id===9?b.mirror:b.world===w.id).map(b=>b.title.trim()));
- const W=2000,m=34,gap=22,cw=(W-2*m-gap)/2,ix=170,tx=202,start=541;
+ const W=2000,m=34,gap=22,cw=(W-2*m-gap)/2,ix=195,tx=225,start=541;
  const font=(size,weight=500)=>weight+' '+size+'px Arial, sans-serif';
  function lines(t,width){const out=[];let cur='';for(const w of t.split(/\s+/u)){
   const next=cur?cur+' '+w:w;if(g.measureText(next).width<=width){cur=next;continue;}
   if(cur){out.push(cur);cur='';}
   let chunk='';for(const ch of w){if(chunk&&g.measureText(chunk+ch).width>width){out.push(chunk);chunk='';}chunk+=ch;}cur=chunk;
  }if(cur)out.push(cur);return out;}
- const H=2870, footerH=226, avail=H-start-gap*5-footerH;
+ const H=2770*200/190, footerH=226, avail=H-start-gap*5-footerH;
  let size=34, leading, lists, rowH, used;
  do{
   g.font=font(size);leading=Math.ceil(size*1.22);
@@ -490,8 +491,8 @@ function draw(art){
  rowH=rowH.map((h,i)=>h+Math.floor(extra*(i+1)/5)-Math.floor(extra*i/5));
  c.width=2480;c.height=3508;
  g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);
- g.save();g.translate(c.width*5/210,c.height*5/297);
- g.scale(c.width*200/(210*W),c.height*287/(297*H));
+ g.save();g.translate(c.width*10/210,c.height*10/297);
+ g.scale(c.width*190/(210*W),c.height*277/(297*H));
  g.beginPath();g.rect(0,0,W,H);g.clip();
  const grad=g.createLinearGradient(0,0,W,H);grad.addColorStop(0,'#060d29');grad.addColorStop(.5,'#09204b');grad.addColorStop(1,'#0b1236');g.fillStyle=grad;g.fillRect(0,0,W,H);
  let seed=329;function rnd(){seed=(Math.imul(1664525,seed)+1013904223)>>>0;return seed/4294967296;}
@@ -504,7 +505,7 @@ function draw(art){
   for(let k=0;k<2;k++){
    const i=j*2+k,w=worlds[i],x=m+k*(cw+gap);
    rect(x,y,cw,h,37,w.bg,w.color,8);rect(x+10,y+10,cw-20,h-20,29,w.bg,'#ffffff',2);
-   const pic=icons[i],scale=Math.min(ix/pic.width,(h-48)/pic.height);
+   const pic=icons[i],iconW=lists[i].length>8?182:ix,scale=Math.min(iconW/pic.width,(h-38)/pic.height);
    g.drawImage(pic,x+13+(ix-pic.width*scale)/2,y+(h-pic.height*scale)/2,pic.width*scale,pic.height*scale);
    g.beginPath();g.arc(x+tx-43,y+49,31,0,7);g.fillStyle=w.color;g.fill();g.fillStyle='#fff';g.font=font(39,900);g.textAlign='center';g.fillText(w.id,x+tx-43,y+63);g.textAlign='left';
    let sz=45;do{g.font=font(sz--,900);}while(g.measureText(w.name.toUpperCase()).width>cw-tx-20);
@@ -519,6 +520,39 @@ function draw(art){
  g.drawImage(foot,0,y,W,footerH);g.restore();
 }
 $('generate').onclick=async()=>{if(approved!==rev)return;const current=rev,token=++gen;$('posterstatus').textContent='Preparando la infografía…';try{const art=await loadArt();if(current!==rev||token!==gen)return;draw(art);painted=rev;$('poster').hidden=false;$('posterstatus').textContent='Infografía A4 lista para descargar o imprimir.';status();}catch(e){if(current===rev)$('posterstatus').textContent=e.message||'No se pudo generar la infografía.';}};
+function posterPdf(jpeg,width,height){
+ const pt=mm=>(mm*72/25.4).toFixed(6),w=pt(210),h=pt(297);
+ const enc=new TextEncoder(),parts=[],offsets=[0];let length=0;
+ function add(x){const b=typeof x==='string'?enc.encode(x):x;parts.push(b);length+=b.length;}
+ function object(id,...pieces){offsets[id]=length;add(id+' 0 obj\n');pieces.forEach(add);add('\nendobj\n');}
+ add('%PDF-1.4\n');add(new Uint8Array([37,226,227,207,211,10]));
+ object(1,'<< /Type /Catalog /Pages 2 0 R >>');
+ object(2,'<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+ object(3,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+w+' '+h+'] /Resources << /XObject << /Poster 4 0 R >> >> /Contents 5 0 R >>');
+ object(4,'<< /Type /XObject /Subtype /Image /Width '+width+' /Height '+height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpeg.length+' >>\nstream\n',jpeg,'\nendstream');
+ const commands='q\n'+w+' 0 0 '+h+' 0 0 cm\n/Poster Do\nQ\n';
+ object(5,'<< /Length '+commands.length+' >>\nstream\n'+commands+'endstream');
+ const start=length;
+ add('xref\n0 6\n0000000000 65535 f \n');
+ for(const o of offsets.slice(1))add(String(o).padStart(10,'0')+' 00000 n \n');
+ add('trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+start+'\n%%EOF\n');
+ return new Blob(parts,{type:'application/pdf'});
+}
+$('downloadpdf').onclick=()=>{
+ if(painted!==rev)return;
+ const current=rev,c=$('canvas');
+ c.toBlob(async blob=>{
+  if(current!==rev)return;
+  try{
+   if(!blob||blob.type!=='image/jpeg')throw Error();
+   const bytes=new Uint8Array(await blob.arrayBuffer());
+   if(current!==rev)return;
+   const url=URL.createObjectURL(posterPdf(bytes,c.width,c.height)),a=el('a');a.href=url;
+   a.download='Reto_de_los_10_Mundos_'+(course===5?'5B':course===6?'6C':course)+'_Primaria_A4.pdf';
+   document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
+  }catch{if(current===rev)$('posterstatus').textContent='No se pudo preparar el PDF.';}
+ },'image/jpeg',0.98);
+};
 $('printposter').onclick=()=>{if(painted===rev)window.print();};
 async function pngAt300dpi(blob){
  const bytes=new Uint8Array(await blob.arrayBuffer()),v=new DataView(bytes.buffer);
